@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles/output.css">
+  <script defer src="./scripts/residente/agregarPago.js"></script>
+  <title>Gestión de Mantenimiento</title>
+</head>
+
+<body class="min-h-screen bg-slate-900 font-overpass relative">
+  <header class="max-w-[1000px] w-screen mx-auto text-white flex">
+    <!-- menu movil-->
+    <div>
+      <input type="checkbox" id="menu" hidden class="peer/menu">
+      <nav
+        class="w-56 h-full absolute z-10 pt-52 bg-colorMenu hidden peer-checked/menu:block sm:peer-checked/menu:hidden">
+        <ul class="select-none">
+          <li id="agregar-pago1" class="cursor-pointer py-2 pl-3 hover:bg-primary mb-2 font-normal">Agregar Pago</li>
+        </ul>
+        <ul class="absolute bottom-0 w-full">
+          <li class="cursor-pointer py-2 pl-3 hover:bg-primary mb-2 font-normal">Notificaciones</li>
+          <li class="cursor-pointer py-2 pl-3 hover:bg-primary mb-2 font-normal">Configuración</li>
+          <li class="cursor-pointer py-2 pl-3 hover:bg-primary mb-2 font-normal">Salir</li>
+        </ul>
+      </nav>
+    </div>
+    <!--cabecera y menu desktop -->
+    <div class="w-full">
+      <div class="bg-primary min-h-40 flex px-4 py-3 justify-around items-center flex-wrap relative z-20">
+        <a href="#">
+          <h1 class="w-min font-kaushan text-4xl select-none cursor-pointer active:scale-105" title="Logo">Residencial
+            Palmarejo
+          </h1>
+        </a>
+        <h3 class="font-overpass pl-4 text-2xl text-center mt-4 sm:mt-0 sm:w-fit">Sistema de Gestion de
+          Mantenimiento</h3>
+        <label for="menu" class="absolute right-5 sm:hidden">
+          <svg class="cursor-pointer active:scale-105" width="40" height="40" fill="none">
+            <g clip-path="url(#a)" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6.667 10h26.666M6.667 20h26.666M6.667 30h26.666" />
+            </g>
+            <defs>
+              <clipPath id="a">
+                <path fill="#fff" d="M0 0h40v40H0z" />
+              </clipPath>
+            </defs>
+          </svg>
+        </label>
+      </div>
+      <ul class="text-black hidden  sm:block">
+        <li id="agregar-pago2" class="w-full text-center bg-sky-400 hover:bg-sky-500 select-none cursor-pointer">Agregar
+          Pago</li>
+      </ul>
+    </div>
+    <div hidden
+      class="max-w-[650px] w-[70%] min-h-[300px] absolute z-50 left-1/2 right-1/2 -translate-x-1/2 mt-[300px] bg-colorMenu rounded-md overflow-hidden">
+      <h2 class="w-full px-3 py-4 bg-primary text-3xl text-center">Agregar Pago</h2>
+      <div class="text-black w-1/2 h-28 mx-auto mt-10 flex flex-wrap gap-3 justify-center">
+        <button id="btn-cancelar-residente"
+          class="bg-orange-400 hover:bg-orange-500 basis-28 grow px-3">Efectivo</button>
+        <button id="btn-aceptar-residente" class="bg-sky-600 hover:bg-sky-700 basis-28 grow px-3">Transferencia</button>
+      </div>
+      <!-- Metodo en Efectivo -->
+      <div hidden class="px-4 pt-3">
+        <label for="input-apartamento-residente" class="flex flex-col items-center">
+          <p class="text-center">Monto</p>
+          <input type="text" id="input-apartamento-residente" class="w-full max-w-32 outline-none text-black p-2">
+
+          <div class="basis-full mt-5 flex gap-2 sm:gap-5 justify-center text-black">
+            <button id="btn-cancelar-residente" class="bg-cancelar w-24 py-2">Cancelar</button>
+            <button id="btn-aceptar-residente" class="bg-sky-600 w-24 py-2">Aceptar</button>
+          </div>
+        </label>
+      </div>
+    </div>
+    <!-- Agregar Pago -->
+    <div id="modal-agregar-pago"
+      class="hidden max-w-[650px] w-[70%] min-h-[300px] absolute z-50 left-1/2 right-1/2 -translate-x-1/2 mt-[300px] bg-colorMenu rounded-md overflow-hidden">
+      <h2 class="w-full px-3 py-4 bg-primary text-3xl text-center">Agregar Pago</h2>
+      <div id="seleccion-metodo-pago">
+        <div class="text-black w-1/2 h-28 mx-auto mt-12 flex flex-wrap gap-3 justify-center">
+          <button id="pago-efectivo" class="bg-orange-400 hover:bg-orange-500 basis-28 grow px-3">Efectivo</button>
+          <button id="pago-transferencia" disabled title="disponible proximamente"
+            class="bg-sky-600 disabled:cursor-not-allowed disabled:bg-slate-500 hover:bg-sky-700 basis-28 grow px-3">Transferencia</button>
+        </div>
+      </div>
+      <!-- Metodo en Efectivo -->
+      <div id="metodo-efectivo-agregar-pago" class="hidden px-4 pt-3">
+        <p class="pb-4 text-center">DEBE <span id="pago-total-deuda" class="bg-black">2,500</span></p>
+        <label id="modal-monto-pago" for="input-apartamento-residente" class="flex flex-col items-center">
+          <p class="text-center">Monto</p>
+          <input type="text" id="monto-agregar-pago" class="w-full max-w-32 outline-none text-black p-2">
+          <span id="msg-error-monto" class="hidden text-red-500">El monto debe ser menor a la deuda</span>
+          <div class="basis-full mt-5 flex gap-2 sm:gap-5 justify-center text-black">
+            <button id="cancelar-pago" class="bg-cancelar w-24 py-2">Cancelar</button>
+            <button id="aceptar-pago" class="bg-sky-600 w-24 py-2">Aceptar</button>
+          </div>
+        </label>
+        <div>
+          <p id="pago-exitoso" class="p-3 mt-8 text-center bg-green-300 text-black font-bold rounded-md hidden">El
+            pago se realizo
+            exitosamente
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="max-w-[1000px] w-screen mx-auto pt-10">
+    <section class="flex justify-evenly p-4 gap-3 flex-wrap bg-slate-600">
+      <article class="grow max-w-[500px] py-4 bg-white relative flex flex-col justify-center items-center gap-3">
+        <h1 class="text-xl">Deuda</h1>
+        <p id="label-deuda2" class="text-5xl">$ 2,500</p>
+        <span class="w-full h-2 absolute bottom-0 bg-red-500"></span>
+      </article>
+    </section>
+    <section>
+      <div class="w-full mx-auto mt-4 grid grid-cols-3 gap-x-1">
+        <h3 class="basis-1/4 py-3 flex gap-1 justify-center cursor-pointer bg-colorMenu">Metodo de Pago <svg width="24"
+            height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down">
+            <path d="M0 0h24v24H0z" stroke="none" />
+            <path d="m6 9 6 6 6-6" />
+          </svg></h3>
+        <h3 class="basis-1/4 py-3 flex gap-1 justify-center cursor-pointer bg-colorMenu">Fecha <svg width="24"
+            height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down">
+            <path d="M0 0h24v24H0z" stroke="none" />
+            <path d="m6 9 6 6 6-6" />
+          </svg></h3>
+        <h3 class="basis-1/4 py-3 flex gap-1 justify-center cursor-pointer bg-colorMenu">Monto <svg width="24"
+            height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down">
+            <path d="M0 0h24v24H0z" stroke="none" />
+            <path d="m6 9 6 6 6-6" />
+          </svg></h3>
+      </div>
+      <div id="tabla-registro-pagos" class="w-full mx-auto grid grid-cols-3 gap-x-1">
+
+      </div>
+    </section>
+  </main>
+  <footer
+    class="max-w-[1000px] w-screen min-h-36 bottom-0 left-1/2 right-1/2 -translate-x-1/2 pt-10 bg-sky-500  flex flex-col justify-center items-center mt-32 absolute">
+    <a href="#">
+      <h1 class="w-min font-kaushan text-2xl text-white select-none cursor-pointer active:scale-105" title="Logo">
+        Residencial Palmarejo
+      </h1>
+    </a>
+    <small>Todos los derechos Reservados &copy; 2024</small>
+  </footer>
+</body>
+
+</html>
