@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "kaushan";
+  src: url("./font/kaushanscript-regular.woff") format("woff");
+  font-display: swap;
+}
+
+@theme {
+  --font-kaushan: "kaushan";
+  --color-primary: #003a37;
+  --color-colorMenu: #569390;
+  --color-cancelar: #725b5b;
+  --color-secondary: #0ea5e9;
+}
+
+input {
+  background-color: beige;
+}

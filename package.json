@@ -1,15 +1,23 @@
 {
-  "name": "SI Mantenimiento",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "sistema_de_pagos",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "tailwind -i ./public/styles/input.css -o ./public/styles/output.css --watch"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node --watch data/server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "devDependencies": {
+    "vite": "7.1.7"
+  },
   "dependencies": {
-    "tailwindcss": "^3.4.10"
+    "@tailwindcss/vite": "4.1.17",
+    "cors": "2.8.5",
+    "express": "5.1.0",
+    "sqlite": "5.1.1",
+    "sqlite3": "^5.1.7",
+    "tailwindcss": "4.1.17"
   }
 }
